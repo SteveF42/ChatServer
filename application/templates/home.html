@@ -15,6 +15,11 @@
     .text-input {
         margin-top: 80%
     }
+    #message-thread{
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+    }
 </style>
 <h1 style="border-bottom: solid;border-width: 2px; 
 border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
@@ -23,6 +28,11 @@ border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
 
 <div class='container'>
     <div class="overflow-auto-msg">
+        <div class = 'incoming-messages'>
+            <ul id='message-thread'>
+            </ul>
+        </div>
+
         <div class="text-input">
             <div class='input-group mb-3'>                
                 <input type="text" id="myMessage" , class="form-control" , style="margin: auto;">
@@ -34,30 +44,6 @@ border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
     </div>
 </div>
 
-<script>
- $(document).ready(function(){
-    var name = "{{user}}"
+<script type='text/javascript' src="{{url_for('static', filename='index.js')}}"></script>
 
-    var socket = io.connect('http://127.0.0.1:5000/');
-    socket.on('connect',function(){
-        socket.send({
-            name : name + " ",
-            message : 'Has joined the server!'
-        });
-    });
-
-    $('#sendButton').on('click', function(){
-        var msg = $('#myMessage').val()
-        $('#myMessage').val('')
-        socket.send({
-            name : name +": ",
-            message : msg,
-        })
-    })
-
-    socket.on('message', function(msg){
-        console.log(msg)
-    })
-})
-</script>
 {% endblock %}

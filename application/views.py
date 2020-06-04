@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint
+from flask import Flask, redirect, url_for, render_template, request, session, flash, Blueprint, jsonify
 
 view = Blueprint('views',__name__,static_folder='static')
 
@@ -25,6 +25,13 @@ def login():
     else:
         return render_template('login.html', context={'session':session})
 
+@view.route('/get_username')
+def get_username():
+    data = {'user': ''}
+    if 'user' in session:
+        data = {'user':session['user']}
+    
+    return jsonify(data)
 
 @view.route('/logout',methods=['POST','GET'])
 def logout():
