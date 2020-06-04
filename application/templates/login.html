@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+    {% if 'user' in session %}
+        <h1 style="border-bottom: solid;border-width: 2px; 
+        border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
+            Logout
+        </h1>    
+        <p style="margin: 20px 25% 0 25%;">logout <a href="/logout">here</a></p>
+    {% else %}
+        <h1 style="border-bottom: solid;border-width: 2px; 
+        border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
+            Login
+        </h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for msg in messages %}
+                    <p class="alert alert-danger", style="margin: 10px 25% 0 25%;">{{msg}}</p>
+                {% endfor %}
+            {% endif%}
+        {% endwith%}
+        <form class="chatarea form-group", method="POST", style="margin: 0 25% 0 25%; padding-top: 25px;">
+            <input type="text" name="input-text" placeholder="Name" class = "form-control">
+            <button type="submit", class="btn btn-dark", action="#", style="margin-top: 15px;"> send </button>
+        </form>
+    {% endif %}
+{% endblock %}  

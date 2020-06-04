@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+
+{% block content %}
+
+    <h1 style="border-bottom: solid;border-width: 2px; 
+    border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
+        Logout
+    </h1>
+    <form class="chatarea form-group", method="POST", style="margin: 0 25% 0 25%; padding-top: 25px;">
+        <p>Logout</p>
+        <button type="submit",name="logout",value='true', class="btn btn-dark", style="margin-top: 15px;"> send </button>
+    </form>
+
+{% endblock %}  
