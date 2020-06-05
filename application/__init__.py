@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
 
 def create_app():
@@ -6,7 +7,7 @@ def create_app():
 
     with app.app_context():
         from application.views import view
-
+        from application.databse import database
         app.register_blueprint(view,url_prefix='/')
 
     return app
