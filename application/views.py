@@ -3,6 +3,7 @@ from application.databse import database
 
 view = Blueprint('views',__name__,static_folder='static')
 
+#webpages
 @view.route('/')
 def home():
     user = session.get('user',None)
@@ -35,11 +36,11 @@ def logout():
     return redirect(url_for('views.home'))
 
 
-
+#fetch routes for javascript
 @view.route('/get_messages')
 def get_messages():
     db = database()
-    ls = db.get_all_messages(10)
+    ls = db.get_all_messages(12)
     return jsonify(ls)
     
 

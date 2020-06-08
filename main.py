@@ -10,6 +10,12 @@ app.secret_key='change later'
 
 @socketio.on('message')
 def handle_message(json):
+    """
+    message event that receives messages, saves them to the database,
+    and sends out an object to the client
+    type json: json object
+    rtpe: none
+    """
     sentence = json['name'] + json['message']
     msg = json['message']
 

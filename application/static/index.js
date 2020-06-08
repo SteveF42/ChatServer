@@ -1,4 +1,3 @@
-
 //retrieves username 
 async function getUserId(){
     response = await fetch('/get_username')
@@ -12,22 +11,15 @@ async function read_messages(){
     obj = await response.json()
     return obj
 }
-async function add_messages(obj){
+async function add_messages(obj, curr_name){
     msg = obj['name'] + ": " + obj['message']
-    curr_name = await read_name()
 
-
-    if(curr_name === obj['name']){
+    if(curr_name === obj.name){
         $('#message-thread').append('<li class="user-message">' + msg + '</li>')
     }
     else{
         $('#message-thread').append('<li class="global-message">' + msg + '</li>')
     }
-}
-async function read_name(){
-    response = await fetch('/get_username')
-    obj = await response.json()
-    return obj['user']
 }
 
 //connected user to socket
@@ -53,14 +45,16 @@ $('#sendButton').on('click', async function(){
 
 //server side event that outputs message
 socket.on('message', async function(msg){
-    console.log(msg)
-    add_messages(msg)
+    //console.log(msg)
+    var name = await getUserId()
+    add_messages(msg,name)
 })
 
 window.onload = (async function(){
     messages = await read_messages()
-    for(var i = 0; i < messages.length;i++)
+    curr_name = await this.getUserId()
+    for(var i = 0; i < messages.length-1;i++)
     {
-        this.add_messages(messages[i])
+        add_messages(messages[i],curr_name)
     }
 })

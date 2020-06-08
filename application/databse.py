@@ -59,7 +59,7 @@ class database:
             name, content, date, _id = r
             data = {"name":name, "message":content, "time":str(date)}
             ls.append(data)
-            
+
         return list(reversed(ls))
 
     def insert_message(self,name, message):
@@ -79,3 +79,8 @@ class database:
         rtype: None
         """
         self.conn.close()
+
+if __name__ == '__main__':
+    c = database()
+    ls = c.get_all_messages()
+    print
