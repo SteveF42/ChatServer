@@ -8,18 +8,40 @@
         border: 2px solid #dedede;
         background-color: #f1f1f1;
         border-radius: 5px;
-        padding: 15px;
-        margin-top: 25px;
+        padding-top: 15px;
+        width: 90%;
+        height: 80%;
+        margin-top: 15px;
     }
 
-    .text-input {
+    /* .text-input {
         margin-top: 80%
-    }
-    #message-thread{
+    } */
+    #message-thread {
         list-style: none;
         display: flex;
         flex-direction: column;
+        padding-left: 0;
+        height: 90%;
+        overflow-y: scroll;
     }
+    #message-thread .user-message{
+        margin-top: 5px;
+        border: solid;
+        border-color: rgba(0, 0, 0, 0.198);
+        border-radius: 10px;
+        background-color: rgb(184, 184, 184);
+        padding: 5px;
+    }
+    #message-thread .global-message{
+        margin-top: 5px;
+        border: solid;
+        border-color: rgba(0, 0, 0, 0.198);
+        border-radius: 10px;
+        background-color: rgb(231, 231, 231);
+        padding: 5px;
+    }
+
 </style>
 <h1 style="border-bottom: solid;border-width: 2px; 
 border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
@@ -27,18 +49,18 @@ border-color: rgba(0, 0, 0, 0.226); margin: 25px 25% 0 25%;">
 </h1>
 
 <div class='container'>
-    <div class="overflow-auto-msg">
-        <div class = 'incoming-messages'>
+    <div class="overflow-msg">
+        <div class='incoming-messages'>
             <ul id='message-thread'>
             </ul>
         </div>
+    </div>
 
-        <div class="text-input">
-            <div class='input-group mb-3'>                
-                <input type="text" id="myMessage" , class="form-control" , style="margin: auto;">
-                <div class='input-group-append'>
-                    <button id="sendButton" , class="btn btn-dark"> send </button>
-                </div>
+    <div class="text-input">
+        <div class='input-group mb-3'>
+            <input type="text" id="myMessage" , class="form-control" , style="margin: auto;">
+            <div class='input-group-append'>
+                <button id="sendButton" , class="btn btn-dark", type="submit"> send </button>
             </div>
         </div>
     </div>

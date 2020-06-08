@@ -7,13 +7,35 @@ async function getUserId(){
     return user_name
 };
 
+async function read_messages(){
+    response = await fetch('/get_messages')
+    obj = await response.json()
+    return obj
+}
+async function add_messages(obj){
+    msg = obj['name'] + ": " + obj['message']
+    curr_name = await read_name()
+
+
+    if(curr_name === obj['name']){
+        $('#message-thread').append('<li class="user-message">' + msg + '</li>')
+    }
+    else{
+        $('#message-thread').append('<li class="global-message">' + msg + '</li>')
+    }
+}
+async function read_name(){
+    response = await fetch('/get_username')
+    obj = await response.json()
+    return obj['user']
+}
 
 //connected user to socket
 var socket = io.connect('http://127.0.0.1:5000/');
 socket.on('connect',async function(){
     var name = await getUserId()
     socket.send({
-        name : name + " ",
+        name : name,
         message : 'Has joined the server!'
     });
 });
@@ -24,13 +46,21 @@ $('#sendButton').on('click', async function(){
     var msg = $('#myMessage').val()
     $('#myMessage').val('')
     socket.send({
-        name : name +": ",
+        name : name,
         message : msg,
     })
 })
 
 //server side event that outputs message
-socket.on('message', function(msg){
+socket.on('message', async function(msg){
     console.log(msg)
-    $('#message-thread').append('<li>' + msg + '</li>')
+    add_messages(msg)
+})
+
+window.onload = (async function(){
+    messages = await read_messages()
+    for(var i = 0; i < messages.length;i++)
+    {
+        this.add_messages(messages[i])
+    }
 })

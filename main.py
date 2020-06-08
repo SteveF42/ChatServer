@@ -5,17 +5,20 @@ from application.databse import database
 
 app = create_app()
 socketio = SocketIO(app)
-db = database
 
 app.secret_key='change later'
 
 @socketio.on('message')
 def handle_message(json):
     sentence = json['name'] + json['message']
-    user = session.get('user')
+    msg = json['message']
 
     print('[MESSAGE]',sentence)
-    socketio.send(sentence, brodcast=True)
+    
+    db = database()
+    db.insert_message(json['name'],json['message'])
+
+    socketio.send(json, brodcast=True)
 
 if __name__ =='__main__':
     socketio.run(app,debug=True)
